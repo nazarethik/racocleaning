@@ -6,7 +6,7 @@ services:
     platform: linux/x86_64
     image: mysql:5.7
     volumes:
-      - db_data:/var/lib/mysql
+      - ./db_data:/var/lib/mysql  # Bind mount for the database data
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -36,7 +36,8 @@ services:
     ports:
       - '8000:80'
     restart: always
-    volumes: ['./:/var/www/html']
+    volumes:
+      - ./wordpress:/var/www/html  # Bind mount for the WordPress files
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
@@ -47,3 +48,4 @@ networks:
   wpsite:
 volumes:
   db_data:
+  wordpress:
